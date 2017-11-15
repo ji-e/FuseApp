@@ -1,0 +1,16 @@
+<App>
+	<iOS.StatusBarConfig Style="Dark" />
+	<Android.StatusBarConfig Color="#000" IsVisible="True" />
+	<Router ux:Name="router" />
+
+	<Navigator DefaultPath="LoginPage"  >
+		<LMMVIEWS.LoginPage ux:Name="LoginPage" router="router"  />
+		<LMMVIEWS.InProgressMeeting ux:Name="InProgressMeeting" router="router"  />
+		<LMMVIEWS.AddMeeting ux:Name="AddMeeting" router="router"  />
+		<LMMVIEWS.settingPage ux:Name="settingPage" router="router"  />
+		<!-- <LMMVIEWS.QnAPage ux:Name="QnAPage" router="router"  /> -->
+		<LMMVIEWS.accessEquipmentPage ux:Name="accessEquipment" router="router"  />
+		<LMMVIEWS.addEquipmentPage ux:Name="addEquipment" router="router"  />
+	</Navigator>
+
+</App>

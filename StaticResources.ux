@@ -1,0 +1,17 @@
+<Panel ux:Class="StaticResources">
+	<Font ux:Global="BaseFont" File="assets/font/KoPubDotumMedium.ttf" />
+	<Font ux:Global="BoldFont" File="assets/font/KoPubDotumBold.ttf" />
+	<Font ux:Global="EngFont" File="assets/font/CenturyGothic.ttf" />
+	<Text ux:Class="EngText" Font="EngFont"  Color="#4a4a4a"/>
+	<Text ux:Class="BaseText" Font="BaseFont" Color="#4a4a4a" />
+	<BaseText ux:Class="BoldText" Font="BoldFont" Color="#4a4a4a" />
+
+	<Image ux:Class="Mute" File="assets/images/mute.png" />
+	<Image ux:Class="Disconnection" File="assets/images/disconnection.png" />
+	<Image ux:Class="Layout" File="assets/images/layout.png" />
+	<Image ux:Class="Exit" File="assets/images/exit.png" />
+	<Image ux:Class="Soundon"  File="assets/images/soundon.png" />
+	<Image ux:Class="Soundoff"  File="assets/images/soundoff.png" />
+	<Image ux:Class="Minus"  File="assets/images/minus.png" />
+	<Image ux:Class="Plus"  File="assets/images/plus.png" />
+</Panel>
