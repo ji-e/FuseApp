@@ -1,0 +1,174 @@
+<Page ux:Class="LMMVIEWS.accessEquipmentPage">
+	<Router ux:Dependency="router" />
+
+	<JavaScript File="../common/js/accessEquipmentPage.js" />
+
+	<LMMVIEWS.exitAlert ux:Name="Alert" Visibility="Hidden"/>
+
+	<Rectangle ux:Name="background" Width="100%" Height="90%" Color="#000" Opacity="0.7" Visibility="Hidden" Alignment="Bottom" />
+
+ 	<WhilePageActive>
+		<Callback Handler="{a}"/>
+	</WhilePageActive>
+	<WhileActive>
+		<Callback Handler="{a}"/>
+	</WhileActive>
+
+
+<DockPanel ux:Name="basebox">
+	<StatusBarBackground Dock="Top" />
+	<BottomBarBackground Dock="Bottom" />
+
+	<Panel ux:Name="topbar" Height="10%" Dock="Top" Color="#586DE4">
+		<BoldText Value="현재 접속중인 장비" Color="#fff" FontSize="8.5*(height(basebox)/300)" Alignment="Center"/>
+		<Panel ux:Name="addImage" Width="17%" Height="100%" Alignment=" CenterRight" Clicked="{goToAddEquipment}" Color="#586DE4" Opacity="0"/>
+		<Image File="../assets/images/addEquipment.png" Height="30%"  Margin="20,0" Alignment="CenterRight" />
+
+		<Panel Width="15%" Height="100%" Alignment=" CenterLeft" Clicked="{goback}" Color="#586DE4" Opacity="0"/>
+		<Image File="../assets/images/back.png" Height="30%" Margin="20,0" Alignment="CenterLeft" />
+	</Panel>
+
+	<Panel ux:Name="Bar" Dock="Top" Height="5.5%" Color="#DCDCDC">
+		<BaseText ux:Name="subTitle" Value="{MeetingName}" Alignment="Center" FontSize="6.5*(height(basebox)/300)" />
+		<!-- <Button Text="F" Clicked="{a}" Alignment="CenterRight"/> -->
+		<StackPanel ux:Name="MallSelection" Orientation="Horizontal" Alignment="CenterRight" Visibility="Hidden">
+			<Panel Padding="10" Clicked="{allCheck}">
+				<BaseText  Value="전체선택" Alignment="Center" FontSize="6.5*(height(basebox)/300)"  />
+			</Panel>
+			<Rectangle Width="0.5" Color="#555" Height="17" Alignment="Center"/>
+			<Panel  Padding="10" Clicked="{allCheck}">
+				<BaseText  Value="전체해제" Alignment="Center" FontSize="6.5*(height(basebox)/300)" />
+			</Panel>
+		</StackPanel>
+		<StackPanel ux:Name="DallSelection" Orientation="Horizontal" Alignment="CenterRight" Visibility="Hidden">
+			<Panel Padding="10" Clicked="{allCheck}">
+				<BaseText  Value="전체선택" Alignment="Center" FontSize="6.5*(height(basebox)/300)"  />
+			</Panel>
+			<Rectangle Width="0.5" Color="#555" Height="17" Alignment="Center"/>
+			<Panel  Padding="10" Clicked="{allCheck}">
+				<BaseText  Value="전체해제" Alignment="Center" FontSize="6.5*(height(basebox)/300)" />
+			</Panel>
+		</StackPanel>
+	</Panel>
+
+
+	<Grid Height="15%" Dock="Bottom" ColumnCount="4" Background="#F0F0F0" Padding="13,15" Alignment="VerticalCenter">
+		<DockPanel Alignment="Center" Clicked="{setMtv}">
+			<Mute ux:Name="MuteON" Height="55%" Dock="Top" Color="#555" />
+			<BaseText ux:Name="MuteONT" Value="음소거" FontSize="6.5*(height(basebox)/300)" Dock="Top" Margin="0,8,0,0 " TextAlignment="Center" />
+
+		</DockPanel>
+
+		<DockPanel Alignment="Center" Clicked="{setDtv}">
+			<Disconnection ux:Name="DisconnectionON" Height="55%" Dock="Top" Color="#555" />
+			<BaseText ux:Name="DisconnectionONT" Value="접속해제" FontSize="6.5*(height(basebox)/300)" Dock="Top" Margin="0,8,0,0" />
+
+
+		</DockPanel>
+
+		<DockPanel Alignment="Center" Clicked="{setLtv}">
+			<Layout ux:Name="LayoutON" Height="55%" Dock="Top" Color="#555" />
+			<BaseText ux:Name="LayoutONT" Value="레이아웃" FontSize="6.5*(height(basebox)/300)" Dock="Top" Margin="0,8,0,0" />
+		</DockPanel>
+
+		<DockPanel Alignment="Center" Clicked="{setEtv}"  >
+			<Exit ux:Name="ExitON" Height="55%" Dock="Top" Color="#555" />
+			<BaseText ux:Name="ExitONT" Value="회의종료" FontSize="6.5*(height(basebox)/300)" Dock="Top" Margin="0,8,0,0" />
+
+		</DockPanel>
+		<Shadow Color="#ccc" Distance="0.5" Angle="0" />
+	</Grid>
+
+	<WhileTrue  Value="{mtv}">
+		<Change MuteON.Color="#586DE4" Duration=".1" />
+		<Change MuteONT.Color="#586DE4" Duration=".1" />
+		<Change subTitle.Visibility="Hidden" />
+		<Change MallSelection.Visibility="Visible" />
+		<Change addImage.Visibility="Hidden" />
+	</WhileTrue>
+
+	<WhileTrue  Value="{dtv}">
+		<Change DisconnectionON.Color="#586DE4" Duration=".1" />
+		<Change DisconnectionONT.Color="#586DE4" Duration=".1" />
+		<Change DallSelection.Visibility="Visible" />
+		<Change addImage.Visibility="Hidden" />
+		<Change subTitle.Visibility="Hidden" />
+	</WhileTrue>
+
+	<WhileTrue Value="{ltv}">
+		<Change LayoutON.Color="#586DE4" Duration=".1" />
+		<Change LayoutONT.Color="#586DE4" Duration=".1" />
+		<Change addImage.Visibility="Hidden" />
+	</WhileTrue>
+
+	<WhileFalse Value="{ltv}">
+		<Change layout.Visibility="Hidden" />
+	</WhileFalse>
+
+	<WhileTrue ux:Name="et" Value="{etv}">
+		<Change ExitON.Color="#586DE4" Duration=".1" />
+		<Change ExitONT.Color="#586DE4" Duration=".1" />
+		<Change Alert.Visibility="Visible" />
+		<Change background.Visibility="Visible" />
+		<Change addImage.Visibility="Hidden" />
+	</WhileTrue>
+
+
+	<EdgeNavigator ux:Name="EdgeNavigator">
+		<LMMVIEWS.Layout Width="40%" Height="100%" ux:Name="layout" EdgeNavigation.Edge="Right"/>
+		<ScrollView Dock="Top" Height="100%" >
+			<StackPanel>
+				<Each Items="{data}" >
+			
+					<Panel>	
+							<!-- <RemovingAnimation>
+								<Move RelativeTo="Size" X="-1" Duration="0.4" Easing="CircularOut" />
+							</RemovingAnimation> -->
+							<!-- <LayoutAnimation>
+								<Resize X="0" Y="0" RelativeTo="SizeChange" Duration="0.25"/>
+							</LayoutAnimation> -->
+								<!-- <LayoutAnimation>
+								<Move RelativeTo="LayoutChange" Y="1" Duration="0.8" Easing="CircularInOut" />
+							</LayoutAnimation> -->
+
+							<LMMVIEWS.accessEquipmentItem  ux:Name="asd" Color="#fafafa" >
+								<WhileTrue Value="{dtv}">
+									<Callback Handler="{goToSelectionMode}" />
+									<Tapped>
+										<Callback Handler="{toggleSelect}" />
+									</Tapped>
+									<WhileTrue Value="{isSelected}">
+										<Change asd.Color="#7EA0FF" />
+									</WhileTrue>
+								</WhileTrue>
+								<WhileTrue Value="{ltv}">
+									<Clicked>
+										<NavigateTo Target="layout" />
+									</Clicked>
+								</WhileTrue>
+								<WhileTrue Value="{mtv}">
+									<Clicked>
+										<Callback Handler="{b}"  />
+									</Clicked>
+								</WhileTrue>
+
+								
+								<Rectangle Height="0.1" Color="#ddd" Alignment="Bottom"/>
+							</LMMVIEWS.accessEquipmentItem>
+
+							
+
+						</Panel>
+
+
+					</Each>
+				</StackPanel>
+			</ScrollView>
+
+
+
+
+		</EdgeNavigator>
+	</DockPanel>
+
+</Page>

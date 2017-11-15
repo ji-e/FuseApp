@@ -1,0 +1,48 @@
+<Panel ux:Class="LMMVIEWS.accessEquipmentItem"  Background="#FAFAFA">
+
+	<Grid ux:Name="item" Height="100%" RowCount="2" Columns="auto,4*" Padding="15,10,10,10" >
+
+		<WhileTrue  Value="{mtv}" >
+		
+			<Circle  ux:Name="check" Width="40*(height(item)/230)" Color="#fafafa" Margin="0,0,6,0" Clicked="{checkToggle}">
+				<Stroke Width="0.1" Color="#aaa"/>
+			</Circle>
+			<Change son.Visibility="Hidden" />
+			<Change soff.Visibility="Hidden" />
+
+		</WhileTrue>
+
+		<StackPanel Orientation="Horizontal" Row="0" Column="1">
+
+			<BoldText  ux:Name="Place" Value="{EquipmentId}" FontSize="45*(height(item)/230)" Alignment="CenterLeft" Margin="6,5" />
+
+			<WhileTrue Value="{EquipmentMute}">
+				<Soundon ux:Name="son" Height="70%" Alignment="Center" Margin="5,5,5,7" Color="#777" />
+			</WhileTrue>
+
+			<WhileFalse Value="{EquipmentMute}">
+				<Soundoff ux:Name="soff"  Height="70%" Alignment="Center" Margin="5,5,5,6" Color="#777" />
+				<Change check.Color="#008E42"/>
+			</WhileFalse>
+
+
+		</StackPanel>
+
+		<BaseText ux:Name="Address" Row="1" Column="1" Value="{EquipmentAddress}" FontSize="30*(height(item)/230)" Margin="7,5" />
+	</Grid>
+
+	<Grid Height="100%"  RowCount="2" Padding="20,10"  Alignment="CenterRight">
+		<BaseText ux:Name="Time" Value="{time}" FontSize="40*(height(item)/230)" Margin="0,5" Alignment="Center"/>
+	</Grid>
+	<WhileTrue Value="{dtv}">
+		<WhileTrue Value="{isSelected}">
+			<Change Place.Color="#fff" />
+			<Change Address.Color="#fff" />
+			<Change Time.Color="#fff" />
+			<Change son.Color="#fff" />
+			<Change soff.Color="#fff" />
+		</WhileTrue>
+	</WhileTrue>
+
+	
+</Panel>

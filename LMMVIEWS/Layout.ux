@@ -1,0 +1,39 @@
+<Panel ux:Class="LMMVIEWS.Layout">
+	<JavaScript>
+	module.exports = {
+		items: [
+		{ name: "All Equal", state:false },
+		{ name: "Speaker only", state:false },
+		{ name: "Telepresence", state:true },
+		{ name: "Stacked", state:false },
+		{ name: "All Equal4", state:false },
+		{ name: "All Equal9", state:false },
+		{ name: "All Equal16", state:false },
+		{ name: "All Equal25", state:false },
+		{ name: "1 Plus 5", state:false },
+		{ name: "1 Plus 7", state:false },
+		{ name: "1 Plus 9", state:false }
+		]
+	};
+	</JavaScript>
+
+	<Grid RowCount="11" Height="100%" ux:Name="sv" Background="#fff">
+		<Each Items="{items}">
+			<Panel ux:Name="stateon" Padding="10">
+				<BaseText Value="{name}" FontSize="24*(width(sv)/230)" Alignment="VerticalCenter" />
+				<WhileTrue Value="{state}">
+					<Change stateon.Color="#DCDCDC" />
+				</WhileTrue>
+				<Clicked>
+					<Change stateon.Color="#D0DCFF" DurationBack="0.3" />
+				</Clicked>
+			</Panel>
+
+		</Each>
+		<Shadow Color="#ccc" Distance="0.5" Angle="90" />
+	</Grid>
+
+
+	
+
+</Panel>

@@ -1,0 +1,76 @@
+<Page ux:Class="LMMVIEWS.addEquipmentPage">
+	<Router ux:Dependency="router" />
+	
+	<JavaScript File="../common/js/addEquipmentPage.js" />
+	<LMMVIEWS.callAlert1 ux:Name="Alert1" Visibility="Hidden" Width="80%" Height="35%" />
+	<LMMVIEWS.callAlert2 ux:Name="Alert2" Visibility="Hidden"/>
+	<Rectangle ux:Name="background" Width="100%" Height="90%" Color="#000" Opacity="0.7" Visibility="Hidden" Alignment="Bottom" />
+
+	<DockPanel>
+		<StatusBarBackground Dock="Top" />
+		<BottomBarBackground Dock="Bottom" />
+
+		<Panel ux:Name="top" Height="10%" Dock="Top" Color="#6D4CE8">
+
+			<BoldText Value="장비추가" Color="#fff" FontSize="12*(width(top)/230)" Alignment="Center"/>
+			<WhileNotEmpty Items="{items}">
+				<Panel Width="17%" Height="100%" Alignment=" CenterRight" Clicked="{setCallt}">
+					<BaseText  Value="호출" Color="#fff" FontSize="11*(width(top)/230)" Alignment="Center"/>
+				</Panel>
+			</WhileNotEmpty>
+			<Panel Width="15%" Height="100%" Alignment=" CenterLeft" Clicked="{goback}">
+				<Image File="../assets/images/back.png" Height="30%" />
+			</Panel>
+
+		</Panel>
+
+
+		<ScrollView  Dock="Fill" >
+			<StackPanel >
+				<Each Items="{items}">
+					<Rectangle ux:Name="item" Color="#fafafa" Padding="10,1">
+						<BaseText Value="{text}" FontSize="14*(width(top)/300)"  Margin="10" Alignment="Center"/>
+						<AddingAnimation>
+							<Change item.Opacity="0" Duration="0.2" />
+						</AddingAnimation>
+						<Stroke Color="#ccc" Width="0.5" />
+						<Minus Height="50%" Alignment="CenterLeft" Clicked="{removeItem}"/>
+						<RemovingAnimation>
+							<Move RelativeTo="Size" X="-1" Duration="0.3" Easing="CircularOut" />
+						</RemovingAnimation>
+						<LayoutAnimation>
+							<Move RelativeTo="LayoutChange" Y="1" Duration="0.3" Easing="CircularInOut" />
+						</LayoutAnimation>
+					</Rectangle>
+
+				</Each>
+			</StackPanel>
+		</ScrollView>
+		
+
+
+		<Rectangle Dock="Bottom" Height="10%" Width="100%" Padding="20,10">
+			<TextInput ux:Name="textInput" Value="{inputText}" TextColor="#333" Width="60%" TextAlignment="Center" FontSize="24*(width(top)/300)" Alignment="Center" PlaceholderText="0000" PlaceholderColor="#aaa" />
+			<Stroke Color="#ccc" Width="1" />
+			<Plus Height="78%" Alignment="CenterRight" Clicked="{addItem}"/>
+		</Rectangle>
+
+		<WhileInactive>
+			<Change textInput.Value=""/>
+		</WhileInactive>
+
+
+
+		<WhileTrue Value="{callt}">
+			<Change Alert1.Visibility="Visible" />
+			<Change background.Visibility="Visible" />
+		</WhileTrue>
+
+		<WhileTrue Value="{calld}">
+			<Change Alert2.Visibility="Visible" />
+			<Change background.Visibility="Visible" />
+		</WhileTrue>
+
+	
+	</DockPanel>
+</Page>

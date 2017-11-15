@@ -1,0 +1,86 @@
+<Page ux:Class="LMMVIEWS.settingPage">
+	<Router ux:Dependency="router" />
+
+	<JavaScript File="../common/js/LoginPage.js" />
+	<JavaScript File="../common/js/settingPage.js" />
+
+
+	<DockPanel ux:Name="appDock">
+		<StatusBarBackground Dock="Top" />
+		<BottomBarBackground Dock="Bottom" />
+		<Panel ux:Name="topbar" Height="10%" Dock="Top" Color="#6D4CE8" >
+			<BoldText Value="환경설정" Color="#fff" FontSize="12*(width(topbar)/230)" Alignment="Center"/>
+			
+			<Panel Width="15%" Height="100%" Alignment=" CenterLeft" Clicked="{InProgressMeeting}">
+				<Image File="../assets/images/back.png" Height="30%" />
+			</Panel>
+
+		</Panel>
+
+		<ScrollView>
+			<StackPanel>
+				<Panel ux:Name="Bar" Dock="Top" Height="35" Padding="15,0" Color="#DCDCDC">
+					<BaseText ux:Name="subTitle" Value="도움말" Alignment="CenterLeft" FontSize="11*(width(Bar)/300)" />
+				</Panel>
+				<Panel ux:Name="qna" Dock="Top" Height="45" Color="White" Padding="15,15" Clicked="{goToQnA}">
+					<BaseText Value="<실시간 관리 회의 앱> 알아보기" Alignment="Left" FontSize="12*(width(Bar)/300)" />
+					<WhilePressed>
+						<Change qna.Color="#D0DCFF"/>
+					</WhilePressed>
+				</Panel>
+				<Panel ux:Name="Bar2" Dock="Top" Height="35" Padding="15,0"  Color="#DCDCDC">
+					<BaseText ux:Name="subTitle2" Value="회사 소개" Alignment="CenterLeft" FontSize="11*(width(Bar)/300)" />
+				</Panel>
+				<StackPanel ItemSpacing="3.5" Background="White" Padding="15,15" >
+					<BaseText Value="회사명" Alignment="Left" FontSize="9*(width(Bar)/300)" />
+					<BoldText Value="Riv Technology" Alignment="Left" FontSize="11*(width(Bar)/300)" />
+				</StackPanel>
+				<Rectangle Height="2px" Color="#DCDCDC"/>
+				<StackPanel ItemSpacing="3.5" Background="White" Padding="15,15" >
+					<BaseText Value="대표" Alignment="Left" FontSize="9*(width(Bar)/300)" />
+					<BoldText Value="김우성" Alignment="Left" FontSize="11*(width(Bar)/300)" />
+				</StackPanel>
+				<Rectangle Height="2px" Color="#DCDCDC"/>
+				<StackPanel ItemSpacing="3.5" Background="White" Padding="15,15" >
+					<BaseText Value="주소" Alignment="Left" FontSize="9*(width(Bar)/300)" />
+					<BoldText Value="서울시 강남구 선릉로 89길 13, 713호" Alignment="Left" FontSize="11*(width(Bar)/300)" />
+				</StackPanel>
+				<Rectangle Height="2px" Color="#DCDCDC"/>
+				<StackPanel ItemSpacing="3.5" Background="White" Padding="15,15" >
+					<BaseText Value="홈페이지" Alignment="Left" FontSize="9*(width(Bar)/300)" />
+					<BoldText Value="www.riv-tech.co.kr" Alignment="Left" FontSize="11*(width(Bar)/300)" />
+				</StackPanel>
+				<Rectangle Height="2px" Color="#DCDCDC"/>
+				<Panel ux:Name="Bar3" Dock="Top" Height="35" Padding="15,0" Color="#DCDCDC">
+					<BaseText ux:Name="subTitle3" Value="로그아웃" Alignment="CenterLeft" FontSize="11*(width(Bar)/300)" />
+				</Panel>
+
+				
+
+
+
+				<Panel  Dock="Top" Height="45" >
+					<Panel ux:Name="panel1" Color="#fff" Padding="15,15" Clicked="{setLogout}">
+						<BaseText Value="다른 IP로 접속하기" Alignment="Left" FontSize="12*(width(Bar)/300)"  />
+					</Panel>
+
+
+
+
+					<StackPanel Color="#7EA0FF" Orientation="Horizontal" >
+						<BoldText Value="로그아웃 하시겠습니까?" Color="#fff" FontSize="12*(width(Bar)/300)" Margin="15"/>
+						<Panel  Clicked="{goToLoginpage}" Margin="10,0">
+							<Image File="../assets/images/logout.png" Height="30%"   />
+						</Panel>
+					</StackPanel>
+				</Panel>
+				
+			</StackPanel>
+		</ScrollView>
+	</DockPanel>
+
+	<WhileTrue Value="{logout}">
+		<Move Target="panel1" X="1000" Duration="0.7" Easing="CircularOut"/>
+	</WhileTrue>
+
+</Page>

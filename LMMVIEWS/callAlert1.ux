@@ -1,0 +1,20 @@
+<Panel ux:Class="LMMVIEWS.callAlert1">
+	<DockPanel ux:Name="Alertpanel" Color="#FAFAFA" Padding="32,30,13,20" >
+		<BoldText Value="선택하신 영상장비를 호출합니다." Alignment="Top" FontSize="15*(width(Alertpanel)/300)" Dock="Top" Color="#555" />
+		<ScrollView Dock="Top" Height="50%" Margin="0,10">
+			<StackPanel >
+				<Each Items="{items}">
+					<BaseText Value="{text}" FontSize="14*(width(Alertpanel)/300)"  Margin="10"/>
+				</Each>
+			</StackPanel>
+		</ScrollView>
+
+		<Panel Width="25%" Height="20%" Dock="Right" Alignment="Bottom" >
+			<BoldText Value="확인" Alignment="Center" FontSize="14*(width(Alertpanel)/300)" Color="#586DE4" Clicked="{callDone}"/>
+		</Panel>
+		<Panel Width="25%" Height="20%" Dock="Right" Alignment="Bottom" >
+			<BoldText Value="취소" Alignment="Center" FontSize="14*(width(Alertpanel)/300)" Color="#555" Clicked="{setCallt}"/>
+		</Panel>
+		
+	</DockPanel>
+</Panel>
