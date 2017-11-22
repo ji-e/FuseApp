@@ -1,7 +1,0 @@
-<Panel ux:Class="topPanel" Height="10%" Dock="Top" Color="#6D4CE8">
-		<BoldText Value="새 회의 만들기" Color="#fff" FontSize="12" Alignment="Center"/>
-			<Panel Width="15%" Height="100%" Alignment=" CenterLeft" Clicked="{goback}">
-				<Image File="../assets/images/back.png" Height="30%" />
-			</Panel>
-
-		</Panel>
