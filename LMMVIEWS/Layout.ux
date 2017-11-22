@@ -1,30 +1,30 @@
 <Panel ux:Class="LMMVIEWS.Layout">
 	<JavaScript>
+
+	function as(args){
+		 if(args.data.name==EquipmentLayout){
+		 	console.log(EquipmentLayout);
+		 }
+			//console.log(EquipmentLayout);
+		//console.log(args.data.name);
+
+	}
+
 	module.exports = {
-		items: [
-		{ name: "All Equal", state:false },
-		{ name: "Speaker only", state:false },
-		{ name: "Telepresence", state:true },
-		{ name: "Stacked", state:false },
-		{ name: "All Equal4", state:false },
-		{ name: "All Equal9", state:false },
-		{ name: "All Equal16", state:false },
-		{ name: "All Equal25", state:false },
-		{ name: "1 Plus 5", state:false },
-		{ name: "1 Plus 7", state:false },
-		{ name: "1 Plus 9", state:false }
-		]
+		
+		as:as
 	};
 	</JavaScript>
 
 	<Grid RowCount="11" Height="100%" ux:Name="sv" Background="#fff">
-		<Each Items="{items}">
-			<Panel ux:Name="stateon" Padding="10">
-				<BaseText Value="{name}" FontSize="24*(width(sv)/230)" Alignment="VerticalCenter" />
+		<Each Items="{listitem}">
+			<Panel ux:Name="stateon" Padding="10" Clicked="{as}">
+				<BaseText Value="{name}" FontSize="7.5*(height(sv)/230)" Alignment="VerticalCenter" />
 				<WhileTrue Value="{state}">
 					<Change stateon.Color="#DCDCDC" />
 				</WhileTrue>
 				<Clicked>
+					<!-- <Set sdf.Value="true"/> -->
 					<Change stateon.Color="#D0DCFF" DurationBack="0.3" />
 				</Clicked>
 			</Panel>

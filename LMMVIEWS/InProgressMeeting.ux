@@ -6,6 +6,18 @@
   <JavaScript File="ProgressItems.js" />
   <JavaScript File="../common/js/InProgressMeeting.js" />
 
+  <WhilePageActive>
+    <Callback Handler="{select}"/>
+  </WhilePageActive>
+  <WhileActive>
+    <Callback Handler="{select}"/>
+  </WhileActive>
+  <WhileInactive>
+    <Callback Handler="{select}"/>
+  </WhileInactive>
+
+
+
   <DockPanel ux:Name="basebox">
 
     <StatusBarBackground Dock="Top" />
@@ -75,12 +87,13 @@
                  <Clicked>
                   <NavigateToggle Target="sidebar" />
                   <Callback Handler="{gosideBar}" />
+                  <Callback Handler="{select}" />
                 </Clicked>
                 <WhilePressed>
                   <Change reset.Color="#586DE4" />
                 </WhilePressed>
               </Panel>
-              <BaseText ux:Name="reset" Column="0" Value="취소" TextAlignment="Center" Color="#333" FontSize="6.3*(height(basebox)/300)"/>
+              <BaseText ux:Name="reset" Column="0" Value="취소" TextAlignment="Center" Color="#333" FontSize="6.3*(height(basebox)/300)" />
 
               <Panel Column="1" Color="#000" Opacity="0" Width="100%" Height="250%" Alignment="Center">
                 <WhilePressed>
@@ -89,7 +102,8 @@
                 <Clicked>
                   <NavigateToggle Target="sidebar" />
                   <Callback Handler="{gosideBar}" />
-                   <Callback Handler="{insert}" />
+                  <Callback Handler="{insert}" />
+                  <Callback Handler="{select}" />
                 </Clicked>
               </Panel>
               <BaseText ux:Name="check" Column="1" Value="확인"  FontSize="6.3*(height(basebox)/300)" TextAlignment="Center" Clicked="{insert}" />
@@ -116,16 +130,16 @@
         <BoldText ux:Name="text" Value="{titleTxt}" Color="#fff" FontSize="8.5*(height(basebox)/300)" Alignment="Center" />
         <Panel Width="17%" Height="100%" Alignment=" CenterRight" Color="#000" Opacity="0">
          
-            <Clicked>
-             <NavigateTo Target="sidebar" />
-             <Callback Handler="{gosideBar}" />
-             <Change newConf.Visibility="Hidden" />
-           </Clicked>
+          <Clicked>
+           <NavigateTo Target="sidebar" />
+           <Callback Handler="{gosideBar}" />
+           <Change newConf.Visibility="Hidden" />
+         </Clicked>
 
          
-     
+         
        </Panel>
-        <Image ux:Name="newConf" File="../assets/images/addmeeting.png" Height="30%" Alignment=" CenterRight" Margin="20,0"/>
+       <Image ux:Name="newConf" File="../assets/images/addmeeting.png" Height="30%" Alignment=" CenterRight" Margin="20,0"/>
      </Panel>
 
 

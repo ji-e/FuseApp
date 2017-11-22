@@ -11,22 +11,14 @@ var SAVENAME = "localStorage.json";
 
 var  datatmp= [];
 
-datatmp.push(new dataitem('서울 본부 회의 PT','00:47:12','0417@lh.or.kr','2000'));
-datatmp.push(new dataitem('대전 본부 회의 PT','00:37:12','0417@lh.or.kr','4000'));
-datatmp.push(new dataitem('논산 본부 회의 PT','00:37:12','0417@lh.or.kr','4000'));
-datatmp.push(new dataitem('광주 본부 회의 PT','00:37:12','0417@lh.or.kr','4000'));
-datatmp.push(new dataitem('부산 본부 회의 PT','00:37:12','0417@lh.or.kr','4000'));
 
-listitem.replaceAll(datatmp);
 var items = [];
     items.push(new ImageData("assets/images/done2.png","assets/images/done2.png","assets/images/done2.png")) ;
 
 	images.replaceAll(items);
 
 
-name.value = "";
-address.value ="";
-call.value = "";
+
 
 titleTxt.value = "현재 진행 중인 회의";
 

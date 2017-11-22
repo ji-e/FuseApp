@@ -6,21 +6,19 @@
 	<LMMVIEWS.callAlert2 ux:Name="Alert2" Visibility="Hidden"/>
 	<Rectangle ux:Name="background" Width="100%" Height="90%" Color="#000" Opacity="0.7" Visibility="Hidden" Alignment="Bottom" />
 
-	<DockPanel>
+	<DockPanel ux:Name="basebox">
 		<StatusBarBackground Dock="Top" />
 		<BottomBarBackground Dock="Bottom" />
 
 		<Panel ux:Name="top" Height="10%" Dock="Top" Color="#6D4CE8">
 
-			<BoldText Value="장비추가" Color="#fff" FontSize="12*(width(top)/230)" Alignment="Center"/>
+			<BoldText Value="장비추가" Color="#fff" FontSize="8.5*(height(basebox)/300)" Alignment="Center"/>
 			<WhileNotEmpty Items="{items}">
-				<Panel Width="17%" Height="100%" Alignment=" CenterRight" Clicked="{setCallt}">
-					<BaseText  Value="호출" Color="#fff" FontSize="11*(width(top)/230)" Alignment="Center"/>
-				</Panel>
+				<Panel Width="17%" Height="100%" Alignment=" CenterRight" Clicked="{setCallt}" Color="#000" Opacity="0"/>
+				<BaseText  Value="호출" Color="#fff" FontSize="8.5*(height(basebox)/300)" Alignment="CenterRight"  Margin="20,0"/>
 			</WhileNotEmpty>
-			<Panel Width="15%" Height="100%" Alignment=" CenterLeft" Clicked="{goback}">
-				<Image File="../assets/images/back.png" Height="30%" />
-			</Panel>
+			<Panel Width="15%" Height="100%" Alignment=" CenterLeft" Clicked="{goback}" Color="#586DE4" Opacity="0"/>
+			<Image File="../assets/images/back.png" Height="30%" Margin="20,0" Alignment="CenterLeft" />
 
 		</Panel>
 
@@ -29,18 +27,18 @@
 			<StackPanel >
 				<Each Items="{items}">
 					<Rectangle ux:Name="item" Color="#fafafa" Padding="10,1">
-						<BaseText Value="{text}" FontSize="14*(width(top)/300)"  Margin="10" Alignment="Center"/>
-						<AddingAnimation>
+						<BaseText Value="{text}" FontSize="9*(height(basebox)/300)"  Margin="10" Alignment="Center"/>
+						<!-- <AddingAnimation>
 							<Change item.Opacity="0" Duration="0.2" />
-						</AddingAnimation>
+						</AddingAnimation> -->
 						<Stroke Color="#ccc" Width="0.5" />
 						<Minus Height="50%" Alignment="CenterLeft" Clicked="{removeItem}"/>
-						<RemovingAnimation>
-							<Move RelativeTo="Size" X="-1" Duration="0.3" Easing="CircularOut" />
-						</RemovingAnimation>
-						<LayoutAnimation>
-							<Move RelativeTo="LayoutChange" Y="1" Duration="0.3" Easing="CircularInOut" />
-						</LayoutAnimation>
+					<!-- 	<RemovingAnimation>
+							<Move RelativeTo="Size" X="1" Duration="0.3" Easing="CircularOut" />
+						</RemovingAnimation> -->
+						<!-- <LayoutAnimation>
+							<Move RelativeTo="LayoutChange" Y="-1" Duration="0.3" Easing="CircularInOut" />
+						</LayoutAnimation> -->
 					</Rectangle>
 
 				</Each>
@@ -50,7 +48,7 @@
 
 
 		<Rectangle Dock="Bottom" Height="10%" Width="100%" Padding="20,10">
-			<TextInput ux:Name="textInput" Value="{inputText}" TextColor="#333" Width="60%" TextAlignment="Center" FontSize="24*(width(top)/300)" Alignment="Center" PlaceholderText="0000" PlaceholderColor="#aaa" />
+			<TextInput ux:Name="textInput" Value="{inputText}" TextColor="#333" Width="60%" TextAlignment="Center" FontSize="15*(height(basebox)/300)" Alignment="Center" PlaceholderText="0000" PlaceholderColor="#aaa" />
 			<Stroke Color="#ccc" Width="1" />
 			<Plus Height="78%" Alignment="CenterRight" Clicked="{addItem}"/>
 		</Rectangle>
