@@ -8,21 +8,44 @@ var MeetingName=titledata.map(function(x){return x.MeetingName});
 var MeetingId=titledata.map(function(x){return x.MeetingId});
 
 
+//var items=Observable([]);
+var aaa= [];
+
 var data = Observable();
 
 
+function dataitemDisconnection(name){
+	this.name = name;
+}
 
+function disconnectionDelete(args){
 
-
-function a(){
-	console.log(MeetingName.value);
-	//console.log(num);
-	var url='http://localhost:8080/test/AccessEquipmentSelect.jsp?';
+	if(aaa.length==0){
+		aaa.push(new dataitemDisconnection(args.data.EquipmentId));
+	}
+	else{
+		aaa.push(new dataitemDisconnection(args.data.EquipmentId));
+		for(var i=0;i<aaa.length-1;i++){
+			if(args.data.EquipmentId==aaa[i].name){
+				aaa.splice(i, 1);
+				aaa.splice(aaa.length-1, 1);
+			}
+		}
+	}
+	EquipmentId=args.data.EquipmentId;
+	if(args.data.EquipmentDisconnection=="False")
+		EquipmentDisconnection="True";
+	else if(args.data.EquipmentDisconnection=="True")
+		EquipmentDisconnection="False";
+	
+	var url='http://localhost:8080/test/AccessEquipmentDisconnectionUpdate.jsp?';
 	var requestObject = {
 		MeetingId:MeetingId.value,
+		EquipmentId:EquipmentId,
+		EquipmentDisconnection:EquipmentDisconnection
+
 	};
 	fetch(url+formEncode(requestObject),
-	//fetch(url+MeetingId+"="+MeetingId.value,
 	{
 		method:'GET',
 		headers: {
@@ -39,7 +62,40 @@ function a(){
 	.catch(function(err) {
 		console.log("error : " + err);
 	});
+
 }
+
+
+
+
+
+function select(){
+	var url='http://localhost:8080/test/AccessEquipmentSelect.jsp?';
+	var requestObject = {
+		MeetingId:MeetingId.value
+	};
+	fetch(url+formEncode(requestObject),
+	{
+		method:'GET',
+		headers: {
+			"Content-type": "application/x-www-form-urlencoded charset=UTF-8"
+		}
+
+	})
+	.then(function(response) { 
+		return response.json(); 
+	})
+	.then(function(responseObject) {
+		
+		data.replaceAll(responseObject);
+	})
+	.catch(function(err) {
+		console.log("error : " + err);
+	});
+
+
+}
+
 
 function formEncode(obj) {
 	var str = [];
@@ -48,77 +104,23 @@ function formEncode(obj) {
 	return str.join("&");
 }
 
-//function select() {
-	// var url='http://localhost:8080/test/AccessEquipmentSelect.jsp?';
-	// var requestObject = {
-	// 	MeetingId:MeetingId.value
-	// };
-	// //fetch(url+formEncode(requestObject),
-	// fetch(url+MeetingId+"="+MeetingId.value,
-	// {
-	// 	method:'GET',
-	// 	headers: {
-	// 		"Content-type": "application/x-www-form-urlencoded charset=UTF-8"
-	// 	}
 
-	// })
-	// .then(function(response) { 
-	// 	return response.json(); 
-	// })
-	// .then(function(responseObject) {
-	// 	data.replaceAll(responseObject);
-	// })
-	// .catch(function(err) {
-	// 	console.log("error : " + err);
-	// });
-
-//}
+dtv=Observable(false);
+mtv=Observable(false);
+ltv=Observable(false);
+etv=Observable(false);
 
 
-/*function Data(place, address, time) {
-	this.place = place;
-	this.address = address;
-	this.time = time;
-	this.sound=Observable(false);
-	this.isSelected=Observable(false);
-}
 
-var data = Observable(
-	new Data("서울지역본부 306호", "test1@xxxx.com", "00:34:04"),
-	new Data("대전충남지역본부", "test2@xxxx.com", "00:23:01"),
-	new Data("충북지역본부", "test3@xxxx.com", "00:31:04"),
-	new Data("전남지역본부", "test4@xxxx.com", "00:14:40"),
-	new Data("전북지역본부", "test5@xxxx.com", "00:34:07")
-	);*/
 
-	dtv=Observable(false);
-	mtv=Observable(false);
-	ltv=Observable(false);
-	etv=Observable(false);
 
-	selectionMode = Observable(false);
-
-	function setMtv(){
-		if(mtv.value==false){
-			mtv.value=true;
-			dtv.value=false;
-			ltv.value=false;
-			etv.value=false;
-			
-		}
-		else
-			mtv.value=false;
-		//console.log(num);
-		
-	}
-
-	function b(args){
+function Muteupdate(args){
+		//select();
 		EquipmentId=args.data.EquipmentId;
 		if(args.data.EquipmentMute=="False")
 			EquipmentMute="True";
 		else if(args.data.EquipmentMute=="True")
 			EquipmentMute="False";
-		//EquipmentMute=args.data.EquipmentMute;
 		
 		var url='http://localhost:8080/test/AccessEquipmentMuteUpdate.jsp?';
 		var requestObject = {
@@ -128,14 +130,13 @@ var data = Observable(
 
 		};
 		fetch(url+formEncode(requestObject),
-	//fetch(url+MeetingId+"="+MeetingId.value,
-	{
-		method:'GET',
-		headers: {
-			"Content-type": "application/x-www-form-urlencoded charset=UTF-8"
-		}
+		{
+			method:'GET',
+			headers: {
+				"Content-type": "application/x-www-form-urlencoded charset=UTF-8"
+			}
 
-	})
+		})
 		.then(function(response) { 
 			return response.json(); 
 		})
@@ -145,27 +146,143 @@ var data = Observable(
 		.catch(function(err) {
 			console.log("error : " + err);
 		});
-		//a();
+
 
 	}
-	
+	function dataitem(name,state){
+		this.name = name;
+		this.state;
+	}
 
-	function setDtv(args){
+	var listitem=Observable([]);
+	var  items= [];
+
+	items.push(new dataitem('All Equal'));
+	items.push(new dataitem('Speaker only'));
+	items.push(new dataitem('Stacked'));
+	items.push(new dataitem('Telepresence'))
+	items.push(new dataitem('All Equal4'));
+	items.push(new dataitem('All Equal9'));
+	items.push(new dataitem('All Equal16'));
+	items.push(new dataitem('All Equal25'));
+	items.push(new dataitem('1 Plus 5'));
+	items.push(new dataitem('1 Plus 7'));
+	items.push(new dataitem('1 Plus 9'));
+
+
+
+	function Layoutupdate(args){
+		select();
+		EquipmentId=args.data.EquipmentId;
+		EquipmentLayout=args.data.EquipmentLayout;
+		for(var i=0; i< items.length;i++){
+			items[i].state=false;
+			if(EquipmentLayout==items[i].name){
+				items[i].state=true;
+			}
+		}	
+		listitem.replaceAll(items);
+
+		EquipmentId=args.data.EquipmentId;
+		if(args.data.EquipmentLayoutState=="False")
+			EquipmentLayoutState="True";
+		else if(args.data.EquipmentLayoutState=="True")
+			EquipmentLayoutState="False";
+
+		var url='http://localhost:8080/test/AccessEquipmentLayoutCheckUpdate.jsp?';
+		var requestObject = {
+			MeetingId:MeetingId.value,
+			EquipmentId:EquipmentId,
+			EquipmentLayoutState:EquipmentLayoutState
+
+		};
+		fetch(url+formEncode(requestObject),
+		{
+			method:'GET',
+			headers: {
+				"Content-type": "application/x-www-form-urlencoded charset=UTF-8"
+			}
+
+		})
+		.then(function(response) { 
+			return response.json(); 
+		})
+		.then(function(responseObject) {
+			data.replaceAll(responseObject);
+		})
+		.catch(function(err) {
+			console.log("error : " + err);
+		});
+	}
+
+
+	function as(args){
+		for(var i=0; i< items.length;i++){
+			items[i].state=false;
+			if(args.data.name==items[i].name){
+				items[i].state=true;
+			}
+		}	
+		var url='http://localhost:8080/test/AccessEquipmentLayoutUpdate.jsp?';
+		var requestObject = {
+			EquipmentId:EquipmentId,
+			EquipmentLayout:args.data.name
+		};
+		fetch(url+formEncode(requestObject),
+		{
+			method:'GET',
+			headers: {
+				"Content-type": "application/x-www-form-urlencoded charset=UTF-8"
+			}
+		}).catch(function(err) {
+			console.log("error : " + err);
+		});
+		listitem.replaceAll(items);
+	}
+
+
+	function setMtv(){
+		if(mtv.value==false){
+			mtv.value=true;
+			dtv.value=false;
+			ltv.value=false;
+			etv.value=false;
+		}
+		else
+			mtv.value=false;
+	}
+
+	function setDtv(){
+		select();
 		if(dtv.value==false){
 			dtv.value=true;
 			mtv.value=false;
 			ltv.value=false;
 			etv.value=false;
-
 		}
 		else{
+			for(var i=0;i<aaa.length;i++){
+				var url='http://localhost:8080/test/AccessEquipmentDisconnetcionDelete.jsp?';
+				var requestObject = {
+					EquipmentId:aaa[i].name
+				};
+				fetch(url+formEncode(requestObject),
+				{
+					method:'GET',
+					headers: {
+						"Content-type": "application/x-www-form-urlencoded charset=UTF-8"
+					}
+
+				}).catch(function(err) {
+					console.log("error : " + err);
+				});
+			}
 			dtv.value=false;
-			data.removeWhere(function (p) {
-				return p.isSelected.value === true;
-			});
-			dtv.value=false;
-			selectionMode.value = false;
+			aaa=[];
+			equipment=[];
+
 		}
+		select();
 	}
 
 	function setLtv(){
@@ -197,12 +314,28 @@ var data = Observable(
 
 
 	function AlertDone(){
+		var url='http://localhost:8080/test/MeetingDelete.jsp?';
+		var requestObject = {
+			MeetingId:MeetingId.value
+		};
+		fetch(url+formEncode(requestObject),
+		{
+			method:'GET',
+			headers: {
+				"Content-type": "application/x-www-form-urlencoded charset=UTF-8"
+			}
+
+		}).catch(function(err) {
+			console.log("error : " + err);
+		});
+		select();
+
 		router.goto("InProgressMeeting");
 		etv.value=false;
 	}
 
 	function goToAddEquipment(){
-		router.push("addEquipment");
+		router.push("addEquipment",MeetingId.value );
 	}
 
 	function goback(){
@@ -210,61 +343,87 @@ var data = Observable(
 	}
 
 
-// function goToSelectionMode(args) {
-// 	if (selectionMode.value === true) return;
-// 	selectionMode.value = true;
-// 	args.data.isSelected.value = true;
-// }
 
-// function toggleSelect(args) {
-// 	if (selectionMode.value === false) return;
-// 	args.data.isSelected.value = !args.data.isSelected.value;
-// }
+	function allMuteCheckOn(){
+		var url='http://localhost:8080/test/AccessEquipmentMuteAllUpdate.jsp?';
+		var requestObject = {
+			MeetingId:MeetingId.value,
+			EquipmentMute:"False"
 
-// function deleteSelected(args) {
-// 	data.removeWhere(function (p) {
-// 		return p.isSelected.value === true;
-// 	});
-// 	dtv.value=false;
-// 	selectionMode.value = false;
-// }
+		};
+		fetch(url+formEncode(requestObject),
+		{
+			method:'GET',
+			headers: {
+				"Content-type": "application/x-www-form-urlencoded charset=UTF-8"
+			}
 
-function checkToggle(args){
-	if(args.data.sound.value ==false) 
-		args.data.sound.value = true;
-	else
-		args.data.sound.value = false;
-}
+		})
+		.then(function(response) { 
+			return response.json(); 
+		})
+		.then(function(responseObject) {
+			data.replaceAll(responseObject);
+		})
+		.catch(function(err) {
+			console.log("error : " + err);
+		});
+	}
 
-function allCheck(){
+	function allMuteCheckOff(){
+		var url='http://localhost:8080/test/AccessEquipmentMuteAllUpdate.jsp?';
+		var requestObject = {
+			MeetingId:MeetingId.value,
+			EquipmentMute:"True"
 
-}
+		};
+		fetch(url+formEncode(requestObject),
+		{
+			method:'GET',
+			headers: {
+				"Content-type": "application/x-www-form-urlencoded charset=UTF-8"
+			}
+
+		})
+		.then(function(response) { 
+			return response.json(); 
+		})
+		.then(function(responseObject) {
+			data.replaceAll(responseObject);
+		})
+		.catch(function(err) {
+			console.log("error : " + err);
+		});
+	}
 
 
-
-module.exports = {
-	goToAddEquipment:goToAddEquipment,
-	AlertDone:AlertDone,
-	data:data,
-	mtv:mtv,
-	dtv:dtv,
-	ltv:ltv,
-	etv:etv,
-	setMtv:setMtv,
-	setDtv:setDtv,
-	setLtv:setLtv,
-	setEtv:setEtv,
-	selectionMode : selectionMode,
+	module.exports = {
+		goToAddEquipment:goToAddEquipment,
+		AlertDone:AlertDone,
+		data:data,
+		mtv:mtv,
+		dtv:dtv,
+		ltv:ltv,
+		etv:etv,
+		setMtv:setMtv,
+		setDtv:setDtv,
+		setLtv:setLtv,
+		setEtv:setEtv,
+	//selectionMode : selectionMode,
 	/*goToSelectionMode : goToSelectionMode,
 	toggleSelect : toggleSelect,
 	deleteSelected : deleteSelected,*/
 	goback:goback,
-	checkToggle:checkToggle,
-	// allCheck:allCheck,
+	//checkToggle:checkToggle,
+	allMuteCheckOn:allMuteCheckOn,
+	allMuteCheckOff:allMuteCheckOff,
 	MeetingName:MeetingName,
 	MeetingId:MeetingId,
-	a:a,
-	b:b
-
+	select:select,
+	Muteupdate:Muteupdate,
+	Layoutupdate:Layoutupdate,
+	listitem:listitem,
+	as:as,
+	disconnectionDelete:disconnectionDelete
 	
 };

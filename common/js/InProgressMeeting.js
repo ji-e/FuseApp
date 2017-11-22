@@ -6,6 +6,16 @@ var nameinput=Observable();
 var addressinput=Observable();
 var callinput=Observable();
 
+fetch('http://localhost:8080/test/InProgressSelet.jsp')
+.then(function(response) { 
+	return response.json(); 
+})
+.then(function(responseObject) {
+	data.replaceAll(responseObject);
+})
+.catch(function(err) {
+	console.log("error : " + err);
+});
 
 
 function select() {
@@ -21,16 +31,7 @@ function select() {
 	});
 
 }
-fetch('http://localhost:8080/test/InProgressSelet.jsp')
-.then(function(response) { 
-	return response.json(); 
-})
-.then(function(responseObject) {
-	data.replaceAll(responseObject);
-})
-.catch(function(err) {
-	console.log("error : " + err);
-});
+
 
 function formEncode(obj) {
 	var str = [];
@@ -40,6 +41,8 @@ function formEncode(obj) {
 }
 
 function insert(){
+	select();
+
 	var url='http://localhost:8080/test/InProgressInsert.jsp?';
 	var requestObject = {
 		MeetingName: nameinput.value,
@@ -57,9 +60,21 @@ function insert(){
 		}
 
 	})
+	.then(function(response) { 
+		return response.json(); 
+	})
+	.then(function(responseObject) {
+		data.replaceAll(responseObject);
+	})
 	.catch(function(err) {
 		console.log("error : " + err);
 	});
+
+	select();
+	nameinput.value = "";
+	addressinput.value ="";
+	callinput.value = "";
+	
 }
 
 function goToaccessEquipment(arg){
