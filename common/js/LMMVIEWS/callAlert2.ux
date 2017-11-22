@@ -1,0 +1,11 @@
+<Panel ux:Class="LMMVIEWS.callAlert2">
+	<DockPanel ux:Name="Alertpanel" Width="80%" Height="23%" Color="#FAFAFA" Padding="32,30,13,20" >
+		<BoldText Value="호출이 완료되었습니다." Alignment="Top" FontSize="15*(width(Alertpanel)/300)" Dock="Top" Color="#555" />
+
+		<Panel Width="25%" Height="20%" Dock="Right" Alignment="Bottom" >
+			<BoldText Value="확인" Alignment="Center" FontSize="14*(width(Alertpanel)/300)" Color="#586DE4" Clicked="{goToAccessEquipment}"/>
+		</Panel>
+		
+		
+	</DockPanel>
+</Panel>
